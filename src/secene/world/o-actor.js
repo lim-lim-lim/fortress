@@ -1,10 +1,9 @@
 
 'use strict';
 
-define( function(){
+define( [ 'createjs' ],function(){
 
     function Actor(){}
-
     Actor.prototype = {
 
         x:function( value ){
@@ -20,5 +19,7 @@ define( function(){
         }
     }
 
+    createjs.extend( Actor.prototype, createjs.DisplayObject );
+    console.dir( Actor );
     return Actor;
 });
