@@ -8,6 +8,7 @@ define( function(){
         this.y = y;
         this.w = w;
         this.h = h;
+        this.isLanding = false;
     }
 
     return CollisionSensor;

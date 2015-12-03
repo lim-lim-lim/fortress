@@ -15,11 +15,11 @@ define( ['backbone', 'handlebars', 'createjs', 'jquery', 'world/c-world', 'text!
             this.world = new createjs.Stage( 'world-canvas' );
             this.map = new M( 300, 100, 30 );
             this.actor = new A( this.map );
-            this.actor.x = U.random( 50, 100 );
+            this.actor.x = 30//U.random( 10, 30 );
             this.world.addChild( this.map );
             this.world.addChild( this.actor );
             var self = this;
-            createjs.Ticker.setFPS( 40 );
+            createjs.Ticker.setFPS( 60 );
             //createjs.Ticker.addEventListener( 'tick', this.world);
             /*
             createjs.Ticker.addEventListener( 'tick', function( event ){
