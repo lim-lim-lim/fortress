@@ -11,28 +11,34 @@ define( ['backbone', 'handlebars', 'createjs', 'jquery', 'world/c-world', 'text!
         map:null,
         ticker:null,
         initialize:function(){
-            this.$el.append( _tmpl( { width:300, height:100 } ) );
+            var stageWidth = 300;
+            var stageHeight = 150;
+            this.$el.append( _tmpl( { width:stageWidth, height:stageHeight } ) );
             this.world = new createjs.Stage( 'world-canvas' );
-            this.map = new M( 300, 100, 30 );
+            this.sky = new createjs.Shape();
+            this.map = new M( stageWidth, stageHeight );
             this.actor = new A( this.map );
-            this.actor.x = 30//U.random( 10, 30 );
-            this.world.addChild( this.map );
+            this.actor.x = U.random( this.actor.w, stageWidth - this.actor.w );
+            this.sky.width = 300;
+            this.sky.height = 100;
+            this.sky.graphics.beginFill( '#EEEEFF').drawRect( 0,0, stageWidth, stageHeight );
+            this.world.addChild( this.sky );
             this.world.addChild( this.actor );
+            this.world.addChild( this.map );
             var self = this;
             createjs.Ticker.setFPS( 60 );
-            //createjs.Ticker.addEventListener( 'tick', this.world);
-            /*
-            createjs.Ticker.addEventListener( 'tick', function( event ){
-                var x = event.delta/1000*20
-                self.actor.x += x;
-                self.world.update();
-            } );
-            */
+
 
             createjs.Ticker.addEventListener( 'tick', function( event ){
                 self.actor.update();
                 self.world.update();
             } );
+
+            this.sky.on( 'click', function( event ){
+                self.actor.reset();
+                self.actor.x = event.rawX;
+                self.actor.y = 0;
+            })
         }
     });
 });
